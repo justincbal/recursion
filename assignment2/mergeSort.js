@@ -12,6 +12,7 @@ const p = (msg) => console.log(msg);
 const testArr = [5, 2, 6, 1, 8, 7, 4, 3];
 
 function mergeSort(arr) {
+    //p(`Starting array = [${arr}]`);
     if (arr.length < 2) return arr;
 
     // Divide array in half
@@ -26,13 +27,11 @@ function mergeSort(arr) {
 
 function merge(left, right) {
     const arr = [];
-
     
+    // Keep looping until left and right array empty
+    while (left.length !== 0 || right.length !== 0) {
+        //p(`left ${left} || right ${right}`);
 
-    if (left.length > 1 && right.length > 1) {
-    while (left.length !== 0 && right.length !== 0) {
-        //p(`LEFT: ${left} || RIGHT: ${right}`);
-        // Keep checking comparing first left index to right 
         if (left[0] < right[0]) {
             arr.push(left[0]);
             left.splice(0, 1);
@@ -41,30 +40,21 @@ function merge(left, right) {
             arr.push(right[0]);
             right.splice(0, 1);
         }
-
-        // Clean up
-        if (left.length === 0 && right.length > 0) {
+        else if (left.length === 0 && right.length !== 0) {
             arr.push(right[0]);
             right.splice(0, 1);
         }
-
-        if (right.length === 0 && left.length > 0) {
+        else if(right.length === 0 && left.length !== 0){
             arr.push(left[0]);
             left.splice(0, 1);
         }
-
-    }
-    } else {
-        if (left < right) {
-            arr.push(left, right);
-            }
-            else { 
-            arr.push(right, left);
-            }
+        //p(`left ${left} || right ${right}`);
     }
 
-    p(`returning: ${arr}`);
+    p(`returning ${arr}`);
     return arr;
 }
 
-mergeSort(testArr);
+p(mergeSort([5,2,4,6]));
+p(mergeSort([10,45,2,5,8,23]));
+p(mergeSort([8,3,55,2,100,4]))
